@@ -3,7 +3,7 @@
 
   <a class="relative block h-64 overflow-hidden rounded shadow-sm" href="{{ item_url }}">
     {% assign dummy_url = 'https://dummyimage.com/800x4:3/eee/000&text=' | append: item.name %}
-    {% assign cover_url = item.photos | last | dig: 'photo', 'versions', 'small' | default: dummy_url %}
+    {% assign cover_url = item.photos | last | dig: 'url' | default: dummy_url %}
     <img alt="{{ item.name }}" class="block object-cover object-center w-full h-full" src="{{ cover_url }}">
   </a>
 
