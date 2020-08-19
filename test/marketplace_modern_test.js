@@ -2,16 +2,16 @@ import { Selector } from 'testcafe';
 import faker from 'faker';
 import { ClientFunction } from 'testcafe';
 
-fixture`Basic complete happy scenario`.page`https://getmarketplace.staging.gapps.platformos.com/`;
+fixture`Basic complete happy scenario`.page(process.env.MPKIT_URL);
 
 const getURL = ClientFunction(() => window.location.href);
 const emailInput = 'label #email';
 const passInput = 'label #password';
 const nameField = '#name';
-const typeField = '#type';
 const descriptionField = '#description';
 const tagsField = '#tags';
 const priceField = '#price';
+const editURL = '/items/edit?id='
 const NewEmail = faker.internet.email();
 const NewPassword = faker.internet.password();
 const logInBtn = Selector('button').withText('Log in');
@@ -89,19 +89,13 @@ test('Item listing', async (t) => {
     .click(logInBtn)
     .click(Selector('a').withText('List your item'))
     .typeText(Selector(nameField), item.name)
-    .typeText(typeField, item.type)
     .typeText(descriptionField, item.description)
     .typeText(tagsField, item.tags)
     .doubleClick(Selector(priceField))
     .pressKey(clearField)
     .typeText(priceField, item.price)
-
-  await t
-
-    //upload file
     .click(Selector('button').withText('browse files'))
     .setFilesToUpload(Selector('main').find('[name="files[]"]'), ['_uploads_/testimage.png'])
-    .wait(1000)
     .click(Selector('button').withText('Submit'))
     .click(mainPage);
 });
@@ -109,13 +103,15 @@ test('Item listing', async (t) => {
 test('Edit item', async (t) => {
   await t
 
-    //searching item by its tag
+    //searching item by its name
     .click(Selector('header').find('a').withText('Log in'))
     .typeText(emailInput, NewEmail)
     .typeText(passInput, NewPassword)
     .click(logInBtn)
     .typeText('input[name="k"]', item.name)
     .click(Selector('main').find('button').withText('Search'))
+    .expect(Selector('main').withText(item.name).exists)
+    .ok("'Item#name could not be found")
     .click(Selector('main').find('h2 a').withText(item.name))
     //checks if all data is correct
     .expect(Selector('h1').withText(item.name).exists)
@@ -137,9 +133,6 @@ test('Edit item', async (t) => {
     .doubleClick(nameField)
     .pressKey(clearField)
     .typeText(nameField, editedItem.name)
-    .doubleClick(typeField)
-    .pressKey(clearField)
-    .typeText(typeField, editedItem.type)
     .doubleClick(descriptionField)
     .pressKey(clearField)
     .typeText(descriptionField, editedItem.description)
@@ -190,7 +183,6 @@ test('Delete item test', async (t) => {
 
 
 test('Breakin-in test, edition by none user', async (t) => {
-  const signInNotification = 'Please sign in with you credentials or register new account before continuing.';
   const notAuthorizedUser = 'Permission denied';
   await t.click(Selector('header').find('a').withText('Log in'))
   .typeText(emailInput, 'user@email.com')
@@ -204,7 +196,7 @@ test('Breakin-in test, edition by none user', async (t) => {
   var itemEditUrl = itemEditUrl.split('-')
   var editItemId = itemEditUrl[itemEditUrl.length -1]
   await t
-  .navigateTo('https://getmarketplace.staging.gapps.platformos.com/items/edit?id=' + editItemId)
-  await t.expect(Selector('div').withText(notAuthorizedUser).exists).ok()
+  .navigateTo(editURL + editItemId)
+  await t.expect(Selector('div').withText(notAuthorizedUser).exists).ok("message 'Permission denied' doesn't exists")
 
 });

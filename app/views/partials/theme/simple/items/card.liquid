@@ -3,7 +3,11 @@
 
   <a class="relative block h-64 overflow-hidden rounded shadow-sm" href="{{ item_url }}">
     {% assign dummy_url = 'https://dummyimage.com/800x4:3/eee/000&text=' | append: item.name %}
-    {% assign cover_url = item.photos | last | dig: 'url' | default: dummy_url %}
+    {% if item.photos.size > 0 %}
+      {% assign cover_url = item.photos | last | dig: 'photo', 'versions', 'small' | default: dummy_url %}
+    {% else %}
+      {% assign cover_url = item.cover_photo_url %}
+    {% endif %}
     <img alt="{{ item.name }}" class="block object-cover object-center w-full h-full" src="{{ cover_url }}">
   </a>
 
@@ -25,7 +29,7 @@
       <p class="mt-1">
         {% if item.orders[0].status == 'sold' %}
         <span class="line-through">{{ item.price | pricify_cents }}</span>
-        <span class="font-bold">&mdash; Sold</span>
+        <span class="font-semibold">&mdash; Sold</span>
         {% else %}
         <span class="text-lg">{{ item.price | pricify_cents }}</span>
         {% endif %}

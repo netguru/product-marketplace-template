@@ -1,10 +1,53 @@
-# about
+# Product Marketplace MVP
 
 backbone for a marketplace like project to be deployed to platformOS.com
 
 # status
 
 it is still in active development and some concepts are being validated and might change 
+
+# installation
+
+- install [pos-cli](https://documentation.platformos.com/get-started/hello-world/install-pos-cli)
+
+```sh
+npm install -g @platformos/pos-cli
+```
+
+- create instance https://partners.platformos.com/instances/new
+
+- add instance to pos-cli
+
+``` sh
+mkdir marketplace; cd marketplace/
+pos-cli env add <YOUR_ENV_NAME> --email <YOUR_EMAIL> --url <YOUR_INSTANCE_URL>
+```
+
+- clone the repository
+
+``` sh
+pos-cli init --url https://github.com/mdyd-dev/marketplace-template-poc.git
+```
+
+- build assets
+
+```sh
+npm ci -S
+npm build
+```
+
+- deploy
+
+```sh
+pos-cli deploy <YOUR_ENV_NAME>
+```
+- open web browser with your instance URL where you will be provided with post-install steps
+
+# setup
+
+- To access admin panel register user with email address: `admin@example.com`
+- Enter `Admin` section from main menu and go to `Marketplace Setup` section
+
 
 # benefits and features
 
@@ -29,21 +72,13 @@ it is still in active development and some concepts are being validated and migh
 - installation wizard
 - stripe integration
 
-# installation
-
-- clone the repository
-- assumed you have created and activated platformOS instance and configured pos-cli - otherwise [links]
-
-```sh
-
-npm ci -S
-npm build
-pos-cli deploy <YOUR_ENV_NAME>
-
-```
-- open web browser with your instance URL where you will be provided with post-install steps
-
 # development guidelines
+
+## first changes
+
+1. Run sync `pos-cli sync <YOUR_ENV_NAME>`
+2. Edit your marketplace name in file `app/translations/en.yml`, key: `en.app.title`
+3. See changes on your website
 
 ## seed 
 
@@ -94,7 +129,7 @@ TBD
 ## categories
 
 categories can be adjusted by:
-- modifying a new category tree in the `app/views/queries/categies.liquid` file
+- edit: https://github.com/mdyd-dev/marketplace-template-poc/blob/master/app/views/partials/lib/queries/raw_category_list.liquid
 - adding a translation to the `app/translations/en_categies.liquid` file
 
 ## TESTS

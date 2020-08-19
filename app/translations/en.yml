@@ -17,9 +17,12 @@ en:
     continue: Continue
 
     orders:
+      created: Order has been placed
       new: new order
       list: Orders
       payment_success: Payment success
+      status:
+        updated: Order status changed
 
     users:
       new: new user
@@ -28,6 +31,12 @@ en:
     items:
       list: Items
       new: new item
+      created: Item created
+      updated: Item updated
+      deleted: Item has been deleted successfully
+      ordered_times:
+        other: Ordered %{count} times
+        one: Ordered %{count} time
 
     categories:
       list: Categories
@@ -53,7 +62,7 @@ en:
           pending_verification: pending verification
           check_details: You can check details of the verification process and manage account details in the
           there_is_a_problem: There is a problem with your bank account verification process.
-          go_to:  Go to
+          go_to: Go to
           to_find_more: to find out more.
           verification_status: "Verification status:"
           you_have_successfully_connected: You have successfully connected and verified your Stripe account.
@@ -81,7 +90,7 @@ en:
     checkout: Checkout
     mark-as-paid: Mark as paid
     pay: Pay
-    pay_with_money: Pay with money
+    pay_online: Pay online
     cancel: Cancel
     ship: Ship
 
@@ -112,7 +121,7 @@ en:
 
     item_statuses:
       sold: sold
-      none: missing
+      none: "&nbsp;"
 
     order_statuses:
       order_status: status
@@ -124,9 +133,10 @@ en:
 
     sessions:
       created: Logged in
+      destroyed: Logged out
 
     account:
-      created: You account has been created
+      created: Your account has been created
 
     errors:
       cannot_sell_to_yourself: You cannot sell to yourself
@@ -146,6 +156,7 @@ en:
 
   lib:
     sort_options:
+      relevance: Relevance
       price_asc: Price (lowest first)
       price_desc: Price (highest first)
       name_asc: Name A-Z
@@ -176,3 +187,4 @@ en:
       trophy: Trophy
       wand: Wand
       woman: Woman
+  _version: pos_marketplaces-products-0.1
