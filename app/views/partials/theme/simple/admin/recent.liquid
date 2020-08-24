@@ -1,32 +1,42 @@
-<div class="flex w-full">
-  <div class="w-3/4">
-    <h3 class="mb-3 text-lg font-medium text-gray-900 title-font">Recent items</h3>
-    <h2 class="mb-6 text-2xl">{% echo 'app.' | append: section | append: '.list' | t %} ({% print list.total_entries %})</h2>
-    <table class="table-auto w-full">
-      <thead>
-        <tr>
-          {% for field in list.results[0] %}
-          <th class="px-4 py-2 border-b">{% print field[0] %}</th>
-          {% endfor %}
-        </tr>
-      </thead>
-      {% for record in list.results %}
-        <tr>
-          {% for field in record %}
-            <td class="px-4 py-2 border-b">
-                {% if field[1].id %}
-                {% for nested in field[1] %}
-                  <div>
-                    {% echo nested[0] %}:{% echo nested[1] %}
-                  </div>
-                {% endfor %}
-                {% else %}
-                {% print field[1] %}
-                {% endif %}
-            </td>
-          {% endfor %}
-        </tr>
-      {% endfor %}
-    </table>
+<section class="py-8 px-4">
+  <div class="flex flex-wrap -mx-4">
+    {% for metric in metrics %}
+      <div class="w-full lg:w-1/4 px-4 mb-4 lg:mb-0">
+        <div class="h-full border rounded shadow">
+          <div class="flex items-center justify-between py-3 px-4 border-b">
+            <h3 class="text-lg font-heading">
+              {% print 'admin.metric.'| append: metric.name | append: ".name" | t %}
+            </h3>
+            <span class="py-1 px-3 text-sm text-white font-semibold bg-green-500 rounded-full">
+              {% print 'admin.metric.period.'| append: metric.period | t %}
+            </span>
+          </div>
+          <div class="flex flex-col p-4">
+            <h3 class="text-3xl mb-3 font-heading font-semibold">
+              {% if metric.name == 'income' %}
+                {% print metric.value | pricify_cents %}
+              {% else %}
+                {% print metric.value %}
+              {% endif %}
+            </h3>
+            <span>
+              {% print 'admin.metric.' | append: metric.name | append: '.delta' | t %}
+            </span>
+            <span class="text-green-500">
+              {% if metric.name == 'income' %}
+                {% print metric.delta | pricify_cents %}
+              {% else %}
+                {% print metric.delta %}
+              {% endif %}
+            </span>
+          </div>
+        </div>
+
+      <span class="text-xs">
+        {% print 'admin.metric.'| append: metric.name | append: ".description" | t %}
+      </span>
+      </div>
+    {% endfor %}
   </div>
-</div>
+</section>
+

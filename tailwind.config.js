@@ -10,7 +10,10 @@ const systemColors = {
 
 module.exports = {
   purge: {
-    content: ['app/**/*.liquid', './src/js/**/*.js'],
+    content: ['app/**/*.liquid', 'modules/**/*.liquid', './src/js/**/*.js'],
+  },
+  future: {
+    removeDeprecatedGapUtilities: true
   },
   theme: {
     container: {

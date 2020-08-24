@@ -1,4 +1,35 @@
 en:
+  admin:
+    menu:
+      setup: Configuration
+      items: Items
+      activities: Activities
+      setup: Setup
+      categories: Categories
+      orders: Orders
+      users: Users
+      home: Home
+    metric:
+      period:
+        montly: Montly
+        daily: Daily
+        total: Total
+      income:
+        name: Income
+        description: Marketplace Owner income at 10% fee
+        delta: New Income
+      users:
+        name: Users
+        description: User account registration counter
+        delta: New Users
+      orders:
+        name: Orders
+        description: New order counter
+        delta: New Orders
+      items:
+        name: Items
+        description: Listings counter
+        delta: New Items
   app:
     title: MVP Marketplace
 
@@ -23,10 +54,31 @@ en:
       payment_success: Payment success
       status:
         updated: Order status changed
+      attr:
+        id: ID
+        created_at: Created at
+        seller: Seller
+        buyer: Buyer
+        total: Total
+
+    activities:
+      list: Activities
+      new: new
+      attr:
+        id: ID
+        created_at: Created at
+        object: Object
+        target: Target
+        actor: Actor
+        type: Type
 
     users:
       new: new user
       list: Users
+      attr:
+        id: ID
+        created_at: Created at
+        email: Email
 
     items:
       list: Items
@@ -37,13 +89,18 @@ en:
       ordered_times:
         other: Ordered %{count} times
         one: Ordered %{count} time
+      attr:
+        id: ID
+        name: Name
+        category: Category
+        created_at: CreatedAt
 
     categories:
       list: Categories
       new: new category
-
-    activities:
-      list: Activities
+      attr:
+        name: Category Name
+        key: Key
 
     payments:
       account:
@@ -109,8 +166,10 @@ en:
       keywords: Keywords
       category: Category
       tags: Tags
+      sort_by: Sort by
 
     dashboard-items:
+      actions: Actions
       list-your-first-item: Add your first item
 
     marketplace_setup:

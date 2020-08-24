@@ -1,14 +1,19 @@
-<div class="flex w-full">
-  <div class="w-3/4">
-    <h3 class="mb-3 text-lg font-medium text-gray-900 title-font">Recent items</h3>
-    <h2 class="mb-6 text-2xl">{% echo 'app.users.list' | t %}</h2>
-    <table class="table-auto w-full">
-      {% for user in users.results %}
-        <tr>
-          <td class="px-4 py-2 border-b">{% print user.id %}</td>
-          <td class="px-4 py-2 border-b">{% print user.email %}</td>
-          <td class="px-4 py-2 border-b">{% echo user.created_at | l %}</td>
-        </tr>
-      {% endfor %}
-    </table>
-</div>
+<table class="table w-full">
+  <thead>
+    <tr>
+      <th class="w-8 text-left">{{ 'app.users.attr.id' | t }}</th>
+      <th class="text-left">{{ 'app.users.attr.email' | t }}</th>
+      <th class="text-left">{{ 'app.users.attr.created_at' | t }}</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for record in list.results %}
+      <tr>
+        <td>{{ record.id }}</td>
+        <td>{{ record.email }}</td>
+        <td>{{ record.created_at | l }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>

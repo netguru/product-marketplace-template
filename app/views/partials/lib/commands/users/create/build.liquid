@@ -2,10 +2,11 @@
   {
     "email":       {{ object.email | json }},
     "password":    {{ object.password | json }},
+    "username":    {{ object.username | json }},
     "remember_me": true
   }
 {% endparse_json %}
 
 {% liquid
-  export object
+  return_rc object
 %}

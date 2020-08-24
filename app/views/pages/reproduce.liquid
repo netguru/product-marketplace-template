@@ -1,8 +1,8 @@
-hello hello
-{{ context.constants.company_info }}
+{% comment %}
+{% endcomment %}
 
-{% log context.constants.company_info %}
-{% background 'test' %}
-  {% log context.constants.company_info %}
-{% endbackground %}
+{% liquid
+  function_rc report = 'lib/commands/metrics/create'
 
+  echo report
+%}
