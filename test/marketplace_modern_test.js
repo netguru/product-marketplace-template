@@ -157,6 +157,7 @@ test('Buying an item and following the seller', async (t) => {
     .click(topMenu.buttons.menuDropdown)
     .click(topMenu.buttons.dashboard)
     .click(dashboard.nav.publicProfile)
+    //
     .click(publicProfile.menu.following)
     .expect(publicProfile.links.userCard.withText(SellerRandomUser.name).exists).ok()
 
