@@ -5,6 +5,8 @@ query search(
   $keyword: String
   $category: String
   $sort: ModelsSortInput = { created_at: { order: DESC } }
+  $withStatuses: Boolean = false
+  $withOrders: Boolean = false
 ) {
   models(
     per_page: $limit
@@ -13,6 +15,7 @@ query search(
       model_schema_name: { value_in: ["item", "group", "profile"] }
       deleted_at: { exists: false }
       properties: [
+        { name: "c__status", contains: "app.statuses.items.published" },
         { name: "tags", contains: $tag }
         { name: "category", starts_with: $category }
       ]
@@ -38,10 +41,21 @@ query search(
       description: property(name: "description")
       slug: property(name: "slug")
       tags: property_array(name: "tags")
+      c__status: property(name: "c__status")
 
       owner: related_user(join_on_property: "owner", foreign_property: "id") {
         id
         email
+      }
+      status: related_model(join_on_property: "id", foreign_property: "object_id", model_schema_name: "status" sort: { created_at: { order: ASC } }) @include(if: $withStatuses) {
+        id
+        created_at
+        name: property(name: "name")
+        object_id: property(name: "object_id")
+      }
+
+      line_items: related_models(join_on_property: "id", foreign_property: "item_id", model_schema_name: "line_item") @include(if: $withOrders) {
+        id
       }
 
       photo: related_model(
