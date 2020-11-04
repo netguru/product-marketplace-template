@@ -301,3 +301,17 @@ test('Products', async (t) => {
     // expects an item that belongs to the profile we are currently visiting
     .expect(link.withText(item.commonName).exists).ok()
 })
+
+test('Orders', async (t) => {
+  await t.useRole(sellerRole)
+    .click(topMenu.buttons.menuDropdown)
+    .click(topMenu.buttons.dashboard)
+    .click(dashboard.nav.itemsForSell)
+    .click(Selector('td').find('select'))
+    .click(Selector('option').withText('Unpublished'))
+    .click(topMenu.buttons.items)
+    .typeText(Selector('input[name="keyword"]'), 'johnsmith')
+    .expect(link.withText('johnsmith').exists).notOk()
+    .click(Selector('form[action="/search"]').find('button').withText('Search'))
+
+})
