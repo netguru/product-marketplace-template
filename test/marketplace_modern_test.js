@@ -302,16 +302,24 @@ test('Products', async (t) => {
     .expect(link.withText(item.commonName).exists).ok()
 })
 
-test('Orders', async (t) => {
+test('Order statuses', async (t) => {
   await t.useRole(sellerRole)
     .click(topMenu.buttons.menuDropdown)
     .click(topMenu.buttons.dashboard)
     .click(dashboard.nav.itemsForSell)
     .click(Selector('td').find('select'))
-    .click(Selector('option').withText('Unpublished'))
+    .click(Selector('option').withText('Published'))
     .click(topMenu.buttons.items)
     .typeText(Selector('input[name="keyword"]'), 'johnsmith')
-    .expect(link.withText('johnsmith').exists).notOk()
     .click(Selector('form[action="/search"]').find('button').withText('Search'))
-
+    .expect(link.withText('johnsmith').exists).ok()
+    .click(topMenu.buttons.menuDropdown)
+    .click(topMenu.buttons.dashboard)
+    .click(dashboard.nav.itemsForSell)
+    .click(Selector('td').find('select'))
+    .click(Selector('option').withText('Unpublished'))
+    await t.click(topMenu.buttons.items)
+    .typeText(Selector('input[name="keyword"]'), 'johnsmith')
+    .click(Selector('form[action="/search"]').find('button').withText('Search'))
+    .expect(Selector('h2').find('a').withText('johnsmith watch').exists).notOk()
 })

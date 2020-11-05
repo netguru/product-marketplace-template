@@ -18,7 +18,7 @@ export const sellerRole = Role(myUrl, async (t) => {
   await t
     .click(topMenu.buttons.logIn)
     .typeText(loginForm.inputs.email, SellerRandomUser.email)
-    .typeText(loginForm.inputs.password, SellerRandomUser.password)
+    .typeText(loginForm.inputs.password, '12345')
     .click(loginForm.buttons.logIn)
 
   await t.expect(Selector('main').withText(loginConfirmation).exists).ok('message ' + loginConfirmation + " doesn't exists")
