@@ -10,7 +10,7 @@ query search(
     per_page: $limit
     filter: {
       id: { value: $id }
-      table: { value_in: ["item", "group", "profile"] }
+      table: { value_in: ["item", "group", "profile", "post"] }
       deleted_at: { exists: false }
       properties: [
         { name: "tags", contains: $tag }
